@@ -1,0 +1,34 @@
+.sidebar{
+    width: 20vh;
+    background-color: #404040;
+    position: fixed;
+    height: 100%;
+    transition: all 1s;
+    overflow-x: hidden;
+}
+
+ul {
+    padding: 0;
+
+}
+ul li {
+    list-style: none;
+}
+.firstSideComponent{
+    margin-top: 5vh;
+    margin-left: -1vh;
+}
+.theRestOfSide {
+    margin-top: 2vh;
+    margin-left: -1vh;
+}
+.sideButtons{
+    color: white;
+    font-size: medium;
+    text-decoration: none;
+}
+.sideButtons:hover {
+    color: #202020;
+}
+
+
