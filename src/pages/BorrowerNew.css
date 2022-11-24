@@ -1,21 +1,21 @@
-.login {
+.borrower {
     max-width: 25em;
     margin-left: 40vw;
     margin-top: 3vh;
     padding: 1em;
     text-align: center;
 }
-.login label {
+.borrower label {
     text-align: left;
     display: block;
     color: #ffffff;
 }
-.login h1 {
+.borrower h1 {
     font-size: 1.5em;
     color: #ffffff;
     margin-bottom: 1em;
 }
-.login input, .login textarea, .login select {
+.borrower input, .borrower textarea, .borrower select {
     width: 100%;
     padding: 0.4em 0.6em;
     margin: 10px 0;
@@ -27,16 +27,11 @@
     color: #495968;
     font-size: .9em;
 }
-.login button {
+.borrower button {
     background: #ffffff;
     color: #495968;
     border: 0;
     padding: 0.4em 0.57em;
     border-radius: 8px;
     cursor: pointer;
-}
-.booktable {
-
-    margin-left: 45vh;
-    margin-right: 10%;
 }
