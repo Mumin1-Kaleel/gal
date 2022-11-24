@@ -6,14 +6,23 @@ import './Search.css';
 //TODO once the database is set up, send the user credentials (stored as 'credentials') to the backend to recieve a real token
 
 async function searchBook(credentials) {
-    return fetch('http://localhost:8080/login', {
+    console.log(credentials);
+    return fetch('http://localhost:3000/Search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(credentials)
+        body: JSON.stringify(credentials),
     })
-        .then(data => data.json())
+    .then(response => {
+        console.log("test");
+        return response.text();
+      })
+      .then(data => {
+        console.log("test2");
+        //setResult(data);
+        alert(data);
+      });
 }
 
 export function Search ({setToken}) {
@@ -21,11 +30,14 @@ export function Search ({setToken}) {
     const [ISBN, setISBN] = useState('');
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
-
+    //const [result, setResult] = useState('');
     //handles form submission (login attempts) by calling the loginUser function with inputted credentials
     //credentials is an object that contains username and password
     const handleSubmit = async e => {
         e.preventDefault();
+        console.log(ISBN);
+        console.log(title);
+        console.log(author);
         const token = await searchBook({
             ISBN,
             title,
