@@ -7,19 +7,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-//query into database object
-/* const getBooks = () => {
-    return new Promise(function(resolve,reject) {
-        pool.query('SELECT * FROM Book', 
-        (error, results) => {
-            if(error) {
-                reject(error);
-            }
-            resolve(results.rows);
-        })
-    })
-} */
-//query for viewing all merchants and their info according to id
 const findBook = (body) => { 
     return new Promise(function (resolve, reject) {
       console.log(body);

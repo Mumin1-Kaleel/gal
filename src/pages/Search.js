@@ -5,32 +5,12 @@ import './Search.css';
 //function that makes a POST request using fetch to the backend api (currently set as http://localhost:8080/login) to get the test token.
 //TODO once the database is set up, send the user credentials (stored as 'credentials') to the backend to recieve a real token
 
-async function searchBook(credentials) {
-    console.log(credentials);
-    return fetch('http://localhost:3000/Search', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials),
-    })
-    .then(response => {
-        console.log("test");
-        return response.text();
-      })
-      .then(data => {
-        console.log("test2");
-        //setResult(data);
-        alert(data);
-      });
-}
-
 export function Search ({setToken}) {
     //useState to store username and password as user enters them
     const [ISBN, setISBN] = useState('');
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
-    //const [result, setResult] = useState('');
+    const [result, setResult] = useState('');
     //handles form submission (login attempts) by calling the loginUser function with inputted credentials
     //credentials is an object that contains username and password
     const handleSubmit = async e => {
@@ -43,7 +23,28 @@ export function Search ({setToken}) {
             title,
             author
         });
-        setToken(token);
+        //console.log(token);
+    }
+
+    async function searchBook(credentials) {
+        console.log(credentials);
+        return fetch('http://localhost:3000/Search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials),
+        })
+        .then(response => {
+            console.log("test");
+            //console.log(response.text());
+            return response.text();
+          })
+          .then(data => {
+            console.log("test2");
+            setResult(data);
+            //alert(data);
+          });
     }
 
     //the body is a form that calls the handleSubmit function above on submit
@@ -81,6 +82,9 @@ export function Search ({setToken}) {
                 />
                 <button type = "submit">Search</button>
             </form>
+            <div>
+                
+            </div>
         </div>
     )
 }
