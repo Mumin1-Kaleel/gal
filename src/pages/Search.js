@@ -73,10 +73,8 @@ export function Search ({setToken}) {
                         console.log(data2);
                         Object.assign(data[i], {"available": String(data2)});
                     })
-                    console.log(data[i]);
                 }
-                console.log(data);
-                setResult(data.toString());
+                setResult(data);
             })
         );
     }
@@ -115,12 +113,9 @@ export function Search ({setToken}) {
                 <button type = "submit">Search</button>
             </form>
         </div>
-        <div>
-            <h2>{result}</h2>
-        </div>
-           {/*  <div className = "booktable">
+            <div className = "booktable">
                 <DataTable setResults = {result}/>
-            </div> */}
+            </div>
         </div>
 
     )

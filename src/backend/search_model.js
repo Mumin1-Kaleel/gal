@@ -2,8 +2,8 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: '4347Proj',
-  password: 'Mankada!23',
+  database: 'postgres',
+  password: 'Afridi.4203$',
   port: 5432,
 });
 
@@ -49,10 +49,10 @@ const getAvailable = (body) => {
         reject(error);
       }
       if(result.rowCount == 0){
-        resolve(true);
+        resolve('Yes');
       }
       else{
-        resolve(false);
+        resolve('No');
       }
     })
   })
