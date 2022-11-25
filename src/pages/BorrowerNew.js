@@ -7,14 +7,19 @@ import DataTable from "./books-list";
 //TODO once the database is set up, send the user credentials (stored as 'credentials') to the backend to recieve a real token
 
 async function searchBorrower(credentials) {
-    return fetch('http://localhost:8080/login', {
+    console.log("test1");
+    return fetch('http://localhost:3000/AddBorrower', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
     })
-        .then(data => data.json())
+        .then(data => {
+            console.log("success!");
+            console.log(data);
+            alert(data);
+        })
 }
 
 export function BorrowerNew ({setToken}) {

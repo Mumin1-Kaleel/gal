@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 //const bp = require('body-parser');
 const search_model = require('./search_model');
+const borrower_model = require('./borrower_model');
 //app.use(bp.json());
 //app.use(bp.urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,6 +36,19 @@ app.get('/Search/:ISBN', function(req, res){
   })
   .catch(error => {
     console.log("test11");
+    res.status(500).send(error);
+  })
+});
+
+app.post('/AddBorrower', function(req, res){
+  console.log("test0");
+  borrower_model.createBorrower(req.body)
+  .then(response => {
+    console.log("testb");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("testc");
     res.status(500).send(error);
   })
 });
