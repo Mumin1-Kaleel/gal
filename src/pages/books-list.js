@@ -10,22 +10,25 @@ const columns = [
 ];
 
 
-const rows = [
-    { id: 1, title: 'Snow', author: 'Jon'},
-    { id: 2, title: 'Lannister', author: 'Cersei' },
-    { id: 3, title: 'Lannister', author: 'Jaime' },
-    { id: 4, title: 'Stark', author: 'Arya' },
-    { id: 5, title: 'Targaryen', author: 'Daenerys' },
-    { id: 6, title: 'Melisandre', author: null},
-    { id: 7, title: 'Clifford', author: 'Ferrara' },
-    { id: 8, title: 'Frances', author: 'Rossini'},
-    { id: 9, title: 'Roxie', author: 'Harvey' },
-];
 
-export default function DataTable() {
+export default function DataTable({ setResults }) {
+
+  //  setResults = '{"isbn10":"10","author":"me","title":"non"},{"isbn10":"11","author":"me","title":"non"}'
+    let res = '{"books":[' +   setResults   + ']}';
+    const obj = JSON.parse(res);
+
+    var objInfo = obj.books.map( function(order) {
+
+        var info = { "id": order.isbn10,
+                    "author": order.author,
+                    "title": order.title
+        }
+            return info;
+    });
+
+    const rows = objInfo;
 
     const [selectedRows, setSelectedRows] = useState();
-    const [tableData, setTableData] = useState(rows);
     const [modalOpen, setModalOpen] = useState(false);
 
 
