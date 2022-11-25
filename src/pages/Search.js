@@ -12,7 +12,6 @@ export function Search ({setToken}) {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [result, setResult] = useState('');
-    const [available, setAvailable] = useState('');
     //handles form submission (login attempts) by calling the loginUser function with inputted credentials
     //credentials is an object that contains username and password
     const handleSubmit = async e => {
@@ -46,23 +45,38 @@ export function Search ({setToken}) {
             })
             .then(data => {
                 console.log("test2");
-                setResult(data);
+                console.log(data);
+                //setResult(data);
                 //alert(data);
-                fetch('http://localhost:3000/Search/:' + String(ISBN), {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                .then(response => {
-                    console.log("test12");
-                    //console.log(response.text());
-                    return response.text();
-                })
-                .then(data => {
-                    console.log("test13");
-                    setAvailable(data);
-                })
+                data = JSON.parse(data);
+                console.log(data[0]);
+                for(let i = 0; i < data.length; i++){
+                    console.log(data[i]);
+                    var js_obj = JSON.parse(JSON.stringify(data[i]));
+                    console.log(js_obj);
+                    let keys = Object.keys(js_obj);
+                    var isbn10 = String(js_obj[keys[0]]);
+                    console.log(isbn10);
+                    fetch('http://localhost:3000/Search/:' + String(isbn10), {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    })
+                    .then(response => {
+                        console.log("test12");
+                        //console.log(response.text());
+                        return response.text();
+                    })
+                    .then(data2 => {
+                        console.log("test13");
+                        console.log(data2);
+                        Object.assign(data[i], {"available": String(data2)});
+                    })
+                    console.log(data[i]);
+                }
+                console.log(data);
+                setResult(data.toString());
             })
         );
     }
@@ -104,9 +118,12 @@ export function Search ({setToken}) {
                 <button type = "submit">Search</button>
             </form>
         </div>
-            <div className = "booktable">
+        <div>
+            <h2>{result}</h2>
+        </div>
+           {/*  <div className = "booktable">
                 <DataTable setResults = {result}/>
-            </div>
+            </div> */}
         </div>
 
     )

@@ -23,7 +23,7 @@ const findBook = (body) => {
         resolve(`Search Invalid!`); //display rows in the database in form of json
       }
       else{
-        resolve(results.rows[0]);
+        resolve(results.rows);
       }
     });
   });
@@ -31,12 +31,10 @@ const findBook = (body) => {
 
 const getAvailable = (body) => {
   return new Promise(function (resolve, reject) {
-    const calender = new Date();
-    today = String(calender.getFullYear()) + "-" + String(calender.getMonth() + 1) + "-" + String(calender.getDate());
     let keys = Object.keys(body);
     ISBN = String(body[keys[0]]);
-    pool.query('SELECT * FROM Book_Loans WHERE ISBN10 = $1 AND (Date_In IS NULL OR Date_In >= $2::date)',
-    [ISBN,today],
+    pool.query('SELECT * FROM Book_Loans WHERE ISBN10 = $1 AND (Date_Out IS NULL OR (Date_In IS NOT NULL AND Date_Out IS NOT NULL))',
+    [ISBN],
     (error, result) => {
       if(error) {
         reject(error);
