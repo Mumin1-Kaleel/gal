@@ -4,6 +4,7 @@ import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Routes} from "react-router-dom";
 import {Search} from "./pages/Search";
+import {BorrowerNew} from "./pages/BorrowerNew";
 import UseToken from "./comps/useToken";
 
 
@@ -20,6 +21,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route exact path="/Search" element={<Search/>}/>
+                    <Route exact path="/AddBorrower" element={<BorrowerNew/>}/>
                 </Routes>
             </Router>
         </div>

@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import './Search.css';
+import DataTable from "./books-list";
 
 //function that makes a POST request using fetch to the backend api (currently set as http://localhost:8080/login) to get the test token.
 //TODO once the database is set up, send the user credentials (stored as 'credentials') to the backend to recieve a real token
@@ -67,8 +68,9 @@ export function Search ({setToken}) {
 
     //the body is a form that calls the handleSubmit function above on submit
     return (
+        <div>
         <div className="login">
-            <h1>Login:</h1>
+            <h1>Search:</h1>
             <form onSubmit={handleSubmit}>
                 <label>ISBN:</label>
 
@@ -101,10 +103,14 @@ export function Search ({setToken}) {
                 <button type = "submit">Search</button>
             </form>
             <div>
-                <h2>{result}</h2>
-                <h2>{available}</h2>
+
             </div>
         </div>
+            <div className = "booktable">
+                <DataTable/>
+            </div>
+        </div>
+
     )
 }
 

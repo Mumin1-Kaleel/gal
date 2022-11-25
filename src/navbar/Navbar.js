@@ -18,7 +18,7 @@ const Navbar = () => {
                         <Nav.Item><Nav.Link className = "sideButtons" href="/Search">Search</Nav.Link></Nav.Item>
                     </li>
                     <li className = "theRestOfSide">
-                        <Nav.Item><Nav.Link className = "sideButtons" href="/AddEvent">Add Event</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link className = "sideButtons" href="/AddBorrower">Add Borrower</Nav.Link></Nav.Item>
                     </li>
                 </ul>
             </div>
