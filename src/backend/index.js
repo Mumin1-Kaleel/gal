@@ -26,4 +26,17 @@ app.post('/Search', function(req, res){
     })
 });
 
+app.get('/Search/:ISBN', function(req, res){
+  console.log("test9");
+  search_model.getAvailable(req.params.ISBN)
+  .then(response => {
+    console.log("test10");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test11");
+    res.status(500).send(error);
+  })
+});
+
 app.listen(3000, () => console.log('API is running on http://localhost:3000/search'));

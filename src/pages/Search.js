@@ -11,6 +11,7 @@ export function Search ({setToken}) {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [result, setResult] = useState('');
+    const [available, setAvailable] = useState('');
     //handles form submission (login attempts) by calling the loginUser function with inputted credentials
     //credentials is an object that contains username and password
     const handleSubmit = async e => {
@@ -28,23 +29,40 @@ export function Search ({setToken}) {
 
     async function searchBook(credentials) {
         console.log(credentials);
-        return fetch('http://localhost:3000/Search', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials),
-        })
-        .then(response => {
-            console.log("test");
-            //console.log(response.text());
-            return response.text();
-          })
-          .then(data => {
-            console.log("test2");
-            setResult(data);
-            //alert(data);
-          });
+        return (
+            fetch('http://localhost:3000/Search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials),
+            })
+            .then(response => {
+                console.log("test");
+                //console.log(response.text());
+                return response.text();
+            })
+            .then(data => {
+                console.log("test2");
+                setResult(data);
+                //alert(data);
+                fetch('http://localhost:3000/Search/:' + String(ISBN), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => {
+                    console.log("test12");
+                    //console.log(response.text());
+                    return response.text();
+                })
+                .then(data => {
+                    console.log("test13");
+                    setAvailable(data);
+                })
+            })
+        );
     }
 
     //the body is a form that calls the handleSubmit function above on submit
@@ -83,7 +101,8 @@ export function Search ({setToken}) {
                 <button type = "submit">Search</button>
             </form>
             <div>
-                
+                <h2>{result}</h2>
+                <h2>{available}</h2>
             </div>
         </div>
     )
