@@ -11,9 +11,18 @@ const findBook = (body) => {
   return new Promise(function (resolve, reject) {
     let keys = Object.keys(body);
     ISBN = String(body[keys[0]]);
+    if(ISBN == ''){
+      ISBN = 'asdljkaDKLJHjdhskshdflkjhadjkhadfjladksfhkjhdfjklhadjklhfdjkhasjdkf';
+    }
     Title = String(body[keys[1]]);
+    if(Title == ''){
+      Title = 'asdljkaDKLJHjdhskshdflkjhadjkhadfjladksfhkjhdfjklhadjklhfdjkhasjdkf';
+    }
     Author = String(body[keys[2]]);
-    pool.query('SELECT * FROM Book WHERE Isbn10 = $1 AND Title = $2 AND Author = $3',
+    if(Author == ''){
+      Author = 'asdljkaDKLJHjdhskshdflkjhadjkhadfjladksfhkjhdfjklhadjklhfdjkhasjdkf';
+    }
+    pool.query('SELECT * FROM Book WHERE Isbn10 LIKE \'%\' || $1 || \'%\' OR Title LIKE \'%\' || $2 || \'%\' OR Author LIKE \'%\' || $3 || \'%\'',
     [ISBN,Title,Author],
       (error, results) => {
       if (error) { //error handling
