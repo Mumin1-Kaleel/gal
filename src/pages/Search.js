@@ -29,6 +29,7 @@ export function Search ({setToken}) {
     }
 
     async function searchBook(credentials) {
+
         console.log(credentials);
         return (
             fetch('http://localhost:3000/Search', {
@@ -102,13 +103,9 @@ export function Search ({setToken}) {
                 />
                 <button type = "submit">Search</button>
             </form>
-            <div>
-                <h2>{result}</h2>
-                <h2>{available}</h2>
-            </div>
         </div>
             <div className = "booktable">
-                <DataTable/>
+                <DataTable setResults = {result}/>
             </div>
         </div>
 
