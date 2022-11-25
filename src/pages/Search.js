@@ -103,7 +103,8 @@ export function Search ({setToken}) {
                 <button type = "submit">Search</button>
             </form>
             <div>
-
+                <h2>{result}</h2>
+                <h2>{available}</h2>
             </div>
         </div>
             <div className = "booktable">
