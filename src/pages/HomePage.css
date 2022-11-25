@@ -1,0 +1,30 @@
+.borrower label {
+    text-align: left;
+    display: block;
+    color: #ffffff;
+}
+.borrower h1 {
+    font-size: 1.5em;
+    color: #ffffff;
+    margin-bottom: 1em;
+}
+.borrower input, .borrower textarea, .borrower select {
+    width: 100%;
+    padding: 0.4em 0.6em;
+    margin: 10px 0;
+    border: .1em solid #ddd;
+    box-sizing: border-box;
+    display: block;
+    border-radius: .2em;
+    background-color: #ffffff;
+    color: #495968;
+    font-size: .9em;
+}
+.borrower button {
+    background: #ffffff;
+    color: #495968;
+    border: 0;
+    padding: 0.4em 0.57em;
+    border-radius: 8px;
+    cursor: pointer;
+}

@@ -6,6 +6,7 @@ import {Routes} from "react-router-dom";
 import {Search} from "./pages/Search";
 import {BorrowerNew} from "./pages/BorrowerNew";
 import UseToken from "./comps/useToken";
+import HomePage from "./pages/HomePage";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Routes>
                     <Route exact path="/Search" element={<Search/>}/>
                     <Route exact path="/AddBorrower" element={<BorrowerNew/>}/>
+                    <Route exact path="/home" element={<HomePage/>} />
                 </Routes>
             </Router>
         </div>
