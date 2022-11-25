@@ -13,8 +13,15 @@ const columns = [
 
 export default function DataTable({ setResults }) {
 
-  //  setResults = '{"isbn10":"10","author":"me","title":"non"},{"isbn10":"11","author":"me","title":"non"}'
-    let res = '{"books":[' +   setResults   + ']}';
+   // setResults = '[{"isbn10":"10","author":"me","title":"non"},{"isbn10":"11","author":"me","title":"non"}]'
+   // setResults = '[{"isbn10":"0195153448","isbn13":"9780195153446","author":"Mark P. O. Morford,Robert J. Lenardon","title":"Classical Mythology","cover":"http://www.openisbn.com/cover/0195153448_72.jpg","publisher":"Oxford University Press, USA","pages":"844"},{"isbn10":"2345678901","isbn13":null,"author":"Mark P. O. Morford,Robert J. Lenardon","title":"Classical Mythology","cover":null,"publisher":null,"pages":null}]';
+   // setResults = '{"isbn10":"10","author":"me","title":"non"}'
+    var res;
+   if(setResults.charAt(0) == '[') {
+       res = '{"books":' + setResults + '}';
+    } else {
+       res = '{"books":[' +   setResults   + ']}';
+    }
     const obj = JSON.parse(res);
 
     var objInfo = obj.books.map( function(order) {

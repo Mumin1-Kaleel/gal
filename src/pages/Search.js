@@ -77,7 +77,6 @@ export function Search ({setToken}) {
 
                 <input
                     type="text"
-                    required
                     value={ISBN}
                     onChange={
                         (e) => setISBN(e.target.value)
@@ -86,7 +85,6 @@ export function Search ({setToken}) {
                 <label>Title:</label>
                 <input
                     type="text"
-                    required
                     value={title}
                     onChange={
                         (e) => setTitle(e.target.value)
@@ -95,7 +93,6 @@ export function Search ({setToken}) {
                 <label>Author:</label>
                 <input
                     type="text"
-                    required
                     value={author}
                     onChange={
                         (e) => setAuthor(e.target.value)
