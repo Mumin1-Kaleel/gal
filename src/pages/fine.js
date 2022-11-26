@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import "./check-in.css"
-import {useState} from "react";
-
+import {useState} from 'react';
+import './fine.css';
 
 const columns = [
     { field: 'id', headerName: 'ISBN', width: 150 },
-    { field: 'dateout', headerName: 'Date Out', width: 100 },
-    { field: 'duedate', headerName: 'Due Date', width: 100},
+    { field: 'title', headerName: 'Title', width: 200  },
+    { field: 'author', headerName: 'Author', width: 200 },
+    { field: 'dateout', headerName: 'Date out', width: 100 },
 ];
 
 const rows = [];
 
-export default function DataTable({ setResults }) {
+export default function FineTable({ setResults }) {
 
 
 
@@ -28,7 +28,7 @@ export default function DataTable({ setResults }) {
     }
 
     return (
-        <div className = "inbooksTable"
+        <div className = "fineTable"
              style={{ height: 400, width: '65%' }}>
             <DataGrid style={{backgroundColor: "#404040", height: "70%", borderColor: "#000000", color: "white"}}
                       rows={rows}
@@ -41,7 +41,7 @@ export default function DataTable({ setResults }) {
                       }}
                       selectionModel={selectedRows}
             />
-            <button className = "checkoutbutton" onClick={handleSubmit} >Check in</button>
+            <button className = "checkoutbutton" onClick={handleSubmit} >Pay Fine</button>
         </div>
     );
 }
