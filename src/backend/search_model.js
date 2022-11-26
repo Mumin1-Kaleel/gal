@@ -50,6 +50,79 @@ const findBook = (body) => {
   });
 };
 
+const checkOutBook = (body, ID) => {
+  console.log("bello");
+  console.log(body);
+  console.log(body.length);
+  return new Promise(function (resolve, reject) {
+    pool.query('SELECT * FROM Book_Loans WHERE CardID = $1',
+    [ID],
+    (error, result) => {
+      if(error) {
+        console.log("hello");
+        reject(error);
+      }
+      if(parseInt(result.rowCount) + parseInt(body.length) > 3){
+        console.log("frello");
+        resolve(`Too many books, only 3 loans allowed on Card!`);
+      }
+      else{
+        var LID = 1;
+        pool.query('SELECT * FROM Book_Loans ORDER BY LoanID DESC LIMIT 1',
+          (error, result) => {
+            if(error) {
+              console.log("cello");
+              reject(error);
+            }
+            if(result.rowCount != 0){
+              let keys2 = Object.keys(result.rows[0]);
+              LID = String(result.rows[0][keys2[0]]);
+              LID = parseInt(LID) + 1;
+            }
+            const calender = new Date();
+            const today = String(calender.getFullYear()) + "-" + String(calender.getMonth() + 1) + "-" + String(calender.getDate());
+            calender.setDate(calender.getDate() + 14);
+            const dueDate = String(calender.getFullYear()) + "-" + String(calender.getMonth() + 1) + "-" + String(calender.getDate());
+            //var ISBNs = JSON.parse(body);
+            for(let i = 0; i < body.length; i++){
+              console.log(body[i]);
+              console.log(String(LID));
+              console.log(ID.substring(1));
+              console.log(today);
+              console.log(dueDate);
+              pool.query('SELECT * FROM Book_Loans WHERE Isbn10 = $1 AND CardID = $2 AND Date_In IS NULL',
+                [body[i], ID.substring(1)],
+                (error, result) => {
+                  if(error) {
+                    console.log("pello");
+                    console.log(result);
+                    reject(error);
+                  }
+                  if(result.rowCount != 0){
+                    resolve('Book already checked out!');
+                  }
+                  else{
+                    pool.query('INSERT INTO Book_Loans(LoanID, isbn10, cardid, date_out, due_date) VALUES ($1, $2, $3, $4, $5)',
+                      [String(LID), body[i], ID.substring(1), today, dueDate],
+                      (error, result) => {
+                        if(error) {
+                          console.log("pello");
+                          console.log(result);
+                          reject(error);
+                        }
+                        console.log(result);
+                        resolve(`A new borrower has been added added!`)
+                    })
+                    LID = LID + 1;
+                  }
+              })
+            }
+        })
+      }
+    })
+  })
+}
+
 const getAvailable = (body) => {
   return new Promise(function (resolve, reject) {
     let keys = Object.keys(body);
@@ -70,7 +143,10 @@ const getAvailable = (body) => {
   })
 }
 
+
+
   module.exports = {  
     findBook,
     getAvailable,
+    checkOutBook,
   };

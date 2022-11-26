@@ -2,29 +2,29 @@ import React, {useState} from "react";
 import './askForCard.css'
 
 function Modal({ setOpenModal, setSelectedRows }) {
-
-
+    console.log("testy");
+    console.log(setSelectedRows.length);
     const [CardID, setCardID] = useState('');
     const handleSubmit = async e => {
         e.preventDefault();
-        fetch('http://localhost:3000/Search/:' + CardID, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(credentials),
-            })
-            .then(response => {
-                console.log("test");
-                //console.log(response.text());
-                return response.text();
-            })
-            .then(data => {
-                
-                
-
-            })
-
+        console.log("tesst");
+        fetch('http://localhost:3000/Search/:' + String(CardID), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(setSelectedRows),
+        })
+        .then(response => {
+            console.log("test");
+            //console.log(response.text());
+            return response.text();
+        })
+        .then(data => {
+            console.log("brest");
+            alert(data);
+        }) 
+ 
 
     }
 
@@ -48,17 +48,13 @@ function Modal({ setOpenModal, setSelectedRows }) {
                             className = "cardArea"
                             type="text"
                             required
-                            value={ISBN}
+                            value={CardID}
                             onChange={
                                 (e) => setCardID(e.target.value)
                             }
                         />
 
-                        <button className = "close" type = "submit"
-                                onClick={() => {
-                                setOpenModal(false);
-                        }}
-                        >
+                        <button className = "close" type = "submit">
                             Submit
                         </button>
                     </form>

@@ -27,6 +27,19 @@ app.post('/Search', function(req, res){
     })
 });
 
+app.post('/Search/:CardID', function(req, res){
+  console.log("testlo");
+  search_model.checkOutBook(req.body, req.params.CardID)
+  .then(response => {
+    console.log("testwo");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("testmo");
+    res.status(500).send(error);
+  })
+});
+
 app.get('/Search/:ISBN', function(req, res){
   console.log("test9");
   search_model.getAvailable(req.params.ISBN)

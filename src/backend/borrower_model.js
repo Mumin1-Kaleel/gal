@@ -56,6 +56,15 @@ const createBorrower = (body) => {
     });
   };
 
+  /* const addLoan = (body) => {
+    return new Promise(function (resolve, reject) {
+        const calender = new Date();
+        today = String(calender.getFullYear()) + "-" + String(calender.getMonth() + 1) + "-" + String(calender.getDate());
+        due = String(calender.getFullYear()) + "-" + String(calender.getMonth() + 1) + "-" + String(calender.getDate() + 14);
+        
+    })
+  } */
+
   module.exports = {  
     createBorrower,
   };
