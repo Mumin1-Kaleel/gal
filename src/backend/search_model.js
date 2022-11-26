@@ -125,10 +125,11 @@ const checkOutBook = (body, ID) => {
 
 const getAvailable = (body) => {
   return new Promise(function (resolve, reject) {
-    let keys = Object.keys(body);
-    ISBN = String(body[keys[0]]);
-    pool.query('SELECT * FROM Book_Loans WHERE ISBN10 = $1 AND (Date_Out IS NULL OR (Date_In IS NOT NULL AND Date_Out IS NOT NULL))',
-    [ISBN],
+    console.log(body);
+    console.log("kaleel");
+    console.log(ISBN);
+    pool.query('SELECT * FROM Book_Loans WHERE ISBN10 = $1 AND (Date_In IS NULL AND Date_Out IS NOT NULL)',
+    [body.substring(1)],
     (error, result) => {
       if(error) {
         reject(error);
