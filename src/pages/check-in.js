@@ -57,10 +57,26 @@ export default function DataTable({ setResults }) {
     const [selectedRows, setSelectedRows] = useState();
 
     const handleSubmit = async e => {
-
-
-        console.log(selectedRows)
+        console.log(selectedRows);
+        console.log(selectedRows.length);
+        console.log(selectedRows[0]);
         e.preventDefault();
+        fetch('http://localhost:3000/home', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(selectedRows),
+        })
+        .then(response => {
+            console.log("test12");
+            return response.text();
+        })
+        .then(data => {
+            console.log("test13");
+            console.log(data);
+            alert(data);
+        }) 
     }
 
     return (
