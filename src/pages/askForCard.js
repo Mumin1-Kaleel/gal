@@ -3,8 +3,29 @@ import './askForCard.css'
 
 function Modal({ setOpenModal }) {
 
-    const [ISBN, setISBN] = useState('');
-    const handleSubmit = async e => {}
+    const [CardID, setCardID] = useState('');
+    const handleSubmit = async e => {
+        e.preventDefault();
+        fetch('http://localhost:3000/Search/:' + CardID, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials),
+            })
+            .then(response => {
+                console.log("test");
+                //console.log(response.text());
+                return response.text();
+            })
+            .then(data => {
+                
+                
+
+            })
+
+
+    }
 
     return (
         <div className="modalBackground">
@@ -28,7 +49,7 @@ function Modal({ setOpenModal }) {
                             required
                             value={ISBN}
                             onChange={
-                                (e) => setISBN(e.target.value)
+                                (e) => setCardID(e.target.value)
                             }
                         />
 
