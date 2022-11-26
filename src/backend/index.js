@@ -3,6 +3,7 @@ const app = express();
 //const bp = require('body-parser');
 const search_model = require('./search_model');
 const borrower_model = require('./borrower_model');
+const home_model = require('./home_model');
 //app.use(bp.json());
 //app.use(bp.urlencoded({ extended: true }));
 app.use(express.json());
@@ -62,6 +63,19 @@ app.post('/AddBorrower', function(req, res){
   })
   .catch(error => {
     console.log("testc");
+    res.status(500).send(error);
+  })
+});
+
+app.get('/home/:card', function(req, res){
+  console.log("test9");
+  home_model.getLoanedBooks(req.params.card)
+  .then(response => {
+    console.log("test10");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test11");
     res.status(500).send(error);
   })
 });
