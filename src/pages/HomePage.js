@@ -4,7 +4,7 @@ import {useState} from "react";
 import './HomePage.css';
 import * as React from 'react';
 import DataTable from "./check-in";
-
+import FineTable from "./fine";
 
 
 export default function HomePage() {
@@ -57,6 +57,9 @@ export default function HomePage() {
             </div>
             <div>
                 <DataTable/>
+            </div>
+            <div>
+                <FineTable/>
             </div>
         </div>
     )
