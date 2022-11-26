@@ -7,7 +7,7 @@ import {Search} from "./pages/Search";
 import {BorrowerNew} from "./pages/BorrowerNew";
 import UseToken from "./comps/useToken";
 import HomePage from "./pages/HomePage";
-
+import FinePage from "./pages/finePage";
 
 function App() {
     const { token, setToken } = UseToken();
@@ -24,6 +24,7 @@ function App() {
                     <Route exact path="/Search" element={<Search/>}/>
                     <Route exact path="/AddBorrower" element={<BorrowerNew/>}/>
                     <Route exact path="/home" element={<HomePage/>} />
+                    <Route exact path="/fine" element={<FinePage/>} />
                 </Routes>
             </Router>
         </div>

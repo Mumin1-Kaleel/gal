@@ -12,7 +12,7 @@ const Navbar = () => {
                         <Nav.Item><Nav.Link className = "sideButtons" href="/home">Home</Nav.Link></Nav.Item>
                     </li>
                     <li className = "theRestOfSide">
-                        <Nav.Item><Nav.Link className = "sideButtons" href="/about">About</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link className = "sideButtons" href="/fine">Fines</Nav.Link></Nav.Item>
                     </li>
                     <li className = "theRestOfSide">
                         <Nav.Item><Nav.Link className = "sideButtons" href="/Search">Search</Nav.Link></Nav.Item>
