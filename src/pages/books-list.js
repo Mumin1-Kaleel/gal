@@ -54,6 +54,7 @@ export default function DataTable({ setResults }) {
             return info;
     });
 
+    console.log(objInfo);
     const rows = objInfo;
 
     const [selectedRows, setSelectedRows] = useState();
@@ -63,7 +64,6 @@ export default function DataTable({ setResults }) {
     const handleSubmit = async e => {
 
         setModalOpen(true);
-        console.log(selectedRows)
         e.preventDefault();
     }
 
@@ -82,7 +82,7 @@ export default function DataTable({ setResults }) {
                       selectionModel={selectedRows}
             />
             <button className = "checkoutbutton" onClick={handleSubmit} >Check out</button>
-            {modalOpen && <Modal setOpenModal={setModalOpen} />}
+            {modalOpen && <Modal setOpenModal={setModalOpen}  setSelectedRows={selectedRows} />}
         </div>
     );
 }

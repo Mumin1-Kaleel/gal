@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import './askForCard.css'
 
-function Modal({ setOpenModal }) {
+function Modal({ setOpenModal, setSelectedRows }) {
+
 
     const [CardID, setCardID] = useState('');
     const handleSubmit = async e => {
