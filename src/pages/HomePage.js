@@ -1,5 +1,3 @@
-
-import {DataGrid} from "@mui/x-data-grid";
 import {useState} from "react";
 import './HomePage.css';
 import * as React from 'react';
@@ -53,10 +51,7 @@ export default function HomePage() {
                 </form>
             </div>
             <div>
-                <h2>{results}</h2>
-            </div>
-            <div>
-                <DataTable/>
+                <DataTable setResults = {results}/>
             </div>
             <div>
                 <FineTable/>

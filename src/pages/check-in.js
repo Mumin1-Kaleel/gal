@@ -6,19 +6,55 @@ import {useState} from "react";
 
 const columns = [
     { field: 'id', headerName: 'ISBN', width: 150 },
-    { field: 'dateout', headerName: 'Date Out', width: 100 },
-    { field: 'duedate', headerName: 'Due Date', width: 100},
+    { field: 'dateout', headerName: 'Date Out', width: 110},
+    { field: 'duedate', headerName: 'Due Date', width: 110},
 ];
-
-const rows = [];
 
 export default function DataTable({ setResults }) {
 
+    var rows;
+    var res;
 
+    if(setResults.charAt(0) == '[') {
+
+        res = '{"books":' +   setResults   + '}';
+    } else {
+
+        res = '{"books":[' +   setResults   + ']}';
+    }
+
+    var objInfo
+    var obj = [];
+
+    try {
+
+        obj = JSON.parse(res);
+    } catch (err) {
+         obj = [];
+    }
+    console.log(typeof obj);
+
+    try {
+
+        objInfo = obj.books.map(function (order) {
+
+            var info = {
+
+                "id": order.isbn10,
+                "dateout": order.date_out,
+                "duedate": order.due_date
+            }
+            return info;
+        });
+        rows = objInfo;
+
+    } catch (err) {
+
+        rows = [];
+        console.log(typeof obj);
+    }
 
     const [selectedRows, setSelectedRows] = useState();
-
-
 
     const handleSubmit = async e => {
 
