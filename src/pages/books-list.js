@@ -79,6 +79,7 @@ export default function DataTable({ setResults }) {
                           setSelectedRows(newSelectionRow);
                       }}
                       selectionModel={selectedRows}
+                      isRowSelectable={(params) => params.row.available === 'Yes'}
             />
             <button className = "checkoutbutton" onClick={handSub} type = "button">Check out</button>
             {modalOpen && <Modal setOpenModal={setModalOpen}  setSelectedRows={selectedRows} />}
