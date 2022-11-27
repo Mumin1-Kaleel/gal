@@ -5,13 +5,16 @@ import {useState} from "react";
 
 
 const columns = [
-    { field: 'id', headerName: 'ISBN', width: 150 },
+
+    { field: 'id', headerName: 'ID', width: 150},
+    { field: 'isbn', headerName: 'ISBN', width: 150},
     { field: 'dateout', headerName: 'Date Out', width: 110},
     { field: 'duedate', headerName: 'Due Date', width: 110},
 ];
 
 export default function DataTable({ setResults }) {
 
+    var fine = [];
     var rows;
     var res;
 
@@ -33,14 +36,32 @@ export default function DataTable({ setResults }) {
          obj = [];
     }
     console.log(typeof obj);
-
+// [{"loanid":"1","isbn10":"0195153448","cardid":"ID001000","date_out":"2022-11-25T06:00:00.000Z","due_date":"2022-12-09T06:00:00.000Z","date_in":null},{"loanid":"2","isbn10":"1234567890","cardid":"ID001000","date_out":"2022-11-25T06:00:00.000Z","due_date":"2022-12-09T06:00:00.000Z","date_in":null}]
     try {
 
         objInfo = obj.books.map(function (order) {
 
+            if(order.date_in === null) {
+
+                const date1 = new Date(order.date_out);
+                const date2 = new Date();
+                console.log(date1);
+                console.log(date2);
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                console.log(diffDays + " days");
+                if (diffDays > 14) {
+
+                    const time = diffDays - 14
+                    const cost = .25 * time;
+                    fine.push([order.loanid, cost]);
+                    console.log(fine[0][0]);
+                }
+            }
             var info = {
 
-                "id": order.isbn10,
+                "id": order.loanid,
+                "isbn": order.isbn10,
                 "dateout": order.date_out,
                 "duedate": order.due_date
             }
@@ -57,6 +78,28 @@ export default function DataTable({ setResults }) {
     const [selectedRows, setSelectedRows] = useState();
 
     const handleSubmit = async e => {
+
+        console.log(selectedRows);
+        obj.books.map(function (order) {
+
+            for(var i = 0; i < Object.keys(selectedRows).length; i++) {
+
+                if(order.loanid == selectedRows[0]){
+
+                    const date1 = new Date(order.due_date);
+                    const date2 = new Date();
+                    const diffTime = Math.abs(date2 - date1);
+                    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                    if(diffDays > 14){
+
+                        const time = diffDays - 14
+                        const cost =  .25 * time;
+                        fine.push([order.loanid , cost]);
+                        console.log(fine);
+                    }
+                }
+            }
+        });
         console.log(selectedRows);
         console.log(selectedRows.length);
         console.log(selectedRows[0]);
