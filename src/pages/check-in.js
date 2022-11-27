@@ -80,11 +80,12 @@ export default function DataTable({ setResults }) {
     const handleSubmit = async e => {
 
         console.log(selectedRows);
+        console.log("bigman 2");
         obj.books.map(function (order) {
-
+            console.log('big man');
             for(var i = 0; i < Object.keys(selectedRows).length; i++) {
 
-                if(order.loanid == selectedRows[0]){
+                if(order.loanid == selectedRows[i]){
 
                     const date1 = new Date(order.due_date);
                     const date2 = new Date();
@@ -94,15 +95,29 @@ export default function DataTable({ setResults }) {
 
                         const time = diffDays - 14
                         const cost =  .25 * time;
-                        fine.push([order.loanid , cost]);
-                        console.log(fine);
+                        console.log(String(order.loanid));
+                        console.log(String(cost));
+                        fetch('http://localhost:3000/home/:' + String(order.loanid) + '/:' + String(cost), {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                        })
+                        .then(response => {
+                            console.log("test12");
+                            return response.text();
+                        })
+                        .then(data => {
+                            console.log("test13");
+                            console.log(data);
+                            alert(data);
+                        })
                     }
                 }
             }
         });
-        console.log(selectedRows);
-        console.log(selectedRows.length);
-        console.log(selectedRows[0]);
+
         e.preventDefault();
         fetch('http://localhost:3000/home', {
             method: 'POST',
@@ -119,7 +134,8 @@ export default function DataTable({ setResults }) {
             console.log("test13");
             console.log(data);
             alert(data);
-        }) 
+        })
+         
     }
 
     return (

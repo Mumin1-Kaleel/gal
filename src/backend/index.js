@@ -4,6 +4,7 @@ const app = express();
 const search_model = require('./search_model');
 const borrower_model = require('./borrower_model');
 const home_model = require('./home_model');
+const fine_model = require('./fine_model');
 //app.use(bp.json());
 //app.use(bp.urlencoded({ extended: true }));
 app.use(express.json());
@@ -80,6 +81,19 @@ app.get('/home/:card', function(req, res){
   })
 });
 
+app.get('/home/:LoanID/:Cost', function(req, res){
+  console.log("test09");
+  home_model.createFines(req.params.LoanID, req.params.Cost)
+  .then(response => {
+    console.log("test010");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test011");
+    res.status(500).send(error);
+  })
+});
+
 app.post('/home', function (req, res) {
   console.log("mb g");
   home_model.checkInBooks(req.body)
@@ -89,6 +103,19 @@ app.post('/home', function (req, res) {
   })
   .catch(error => {
     console.log("test11");
+    res.status(500).send(error);
+  })
+});
+
+app.get('/fine/:card', function(req, res){
+  console.log("test90");
+  fine_model.getFines(req.params.card)
+  .then(response => {
+    console.log("test100");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test110");
     res.status(500).send(error);
   })
 });

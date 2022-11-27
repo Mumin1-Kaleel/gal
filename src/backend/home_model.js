@@ -2,8 +2,8 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: 'postgres',
-  password: 'Afridi.4203$',
+  database: '4347Proj',
+  password: 'Mankada!23',
   port: 5432,
 });
 
@@ -44,7 +44,25 @@ const checkInBooks = (body) => {
     })
 } 
 
+const createFines = (LoanID, FineAmt) => {
+    return new Promise(function (resolve,reject) {
+        console.log("zesty2");
+        console.log(String(LoanID));
+        console.log(String(FineAmt));
+        pool.query('INSERT INTO FINES(LoanID, Fine_Amt, Paid) VALUES($1, $2, $3)',
+            [String(LoanID).substring(1), parseFloat(String(FineAmt).substring(1)), false],
+            (error) => {
+                if(error){
+                    console.log("zestm");
+                    reject(error);
+                }
+                resolve(`Inserts Added!`);
+            })
+    })
+}
+
 module.exports = {
     getLoanedBooks,
     checkInBooks,
+    createFines,
 }

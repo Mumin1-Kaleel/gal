@@ -10,10 +10,25 @@ import FineTable from "./fine";
 export default function FinePage() {
 
     const [card, setCard] = useState('');
-
+    const [results, setResults] = useState('');
     const handleSubmit = async e => {
         e.preventDefault();
-
+        fetch('http://localhost:3000/fine/:' + String(card), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => {
+            console.log("test12");
+            //console.log(response.text());
+            return response.text();
+        })
+        .then(data => {
+            console.log("test13");
+            setResults(data);
+            console.log(results);
+        })
     }
 
     //the body is a form that calls the handleSubmit function above on submit
