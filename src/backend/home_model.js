@@ -49,14 +49,36 @@ const createFines = (LoanID, FineAmt) => {
         console.log("zesty2");
         console.log(String(LoanID));
         console.log(String(FineAmt));
-        pool.query('INSERT INTO FINES(LoanID, Fine_Amt, Paid) VALUES($1, $2, $3)',
-            [String(LoanID).substring(1), parseFloat(String(FineAmt).substring(1)), false],
-            (error) => {
+        pool.query('SELECT * FROM Fines WHERE LoanID = $1',
+            [String(LoanID).substring(1)],
+            (error, result) => {
                 if(error){
                     console.log("zestm");
                     reject(error);
                 }
-                resolve(`Inserts Added!`);
+                if(result.rowCount == 0){
+                    pool.query('INSERT INTO FINES(LoanID, Fine_Amt, Paid) VALUES($1, $2, $3)',
+                    [String(LoanID).substring(1), parseFloat(String(FineAmt).substring(1)), false],
+                    (error) => {
+                        if(error){
+                            console.log("zestm");
+                            reject(error);
+                        }
+                        resolve(`Inserts Added!`);
+                    })
+                }
+                else{
+                    pool.query('UPDATE Fines SET Fine_Amt = $1, Paid = $2, WHERE LoanID = $3',
+                    [parseFloat(String(FineAmt).substring(1)), false, String(LoanID).substring(1)],
+                    (error) => {
+                        if(error){
+                            console.log("zest?");
+                            reject(error);
+                        }
+                        resolve(`Updates Added!`);
+                    })
+                }
+                
             })
     })
 }

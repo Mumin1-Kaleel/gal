@@ -54,8 +54,22 @@ export default function DataTable({ setResults }) {
 
                     const time = diffDays - 14
                     const cost = .25 * time;
-                    fine.push([order.loanid, cost]);
-                    console.log(fine[0][0]);
+                    fetch('http://localhost:3000/home/:' + String(order.loanid) + '/:' + String(cost), {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                    })
+                    .then(response => {
+                        console.log("test12");
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log("test13");
+                        console.log(data);
+                        alert(data);
+                    })
                 }
             }
             var info = {
@@ -95,6 +109,7 @@ export default function DataTable({ setResults }) {
 
                         const time = diffDays - 14
                         const cost =  .25 * time;
+                        fine.push(order.loanid, cost);
                         console.log(String(order.loanid));
                         console.log(String(cost));
                         fetch('http://localhost:3000/home/:' + String(order.loanid) + '/:' + String(cost), {
