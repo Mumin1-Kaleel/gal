@@ -29,7 +29,29 @@ export default function FinePage() {
         .then(data => {
             console.log("test13");
             setResults(data);
+
             console.log(results);
+        })
+    }
+
+    const handleRefresh = async e => {
+        e.preventDefault();
+        fetch('http://localhost:3000/fine/:' + String(card), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => {
+            console.log("test12");
+            //console.log(response.text());
+            return response.text();
+        })
+        .then(data => {
+            console.log("test13");
+            console.log(data);
+            setRes(data);
+            console.log(res);
         })
     }
 
@@ -51,7 +73,7 @@ export default function FinePage() {
                     />
 
                     <button type = "submit">Submit</button>
-                    <button className = "refreshbutton" type="button">Refresh</button>
+                    <button className = "refreshbutton" type="button" onClick={handleRefresh}>Refresh</button>
                 </form>
             </div>
             <div>

@@ -133,4 +133,17 @@ app.post('/fine', function (req, res) {
   })
 });
 
+app.post('/fine/:card', function (req, res) {
+  console.log("mbk");
+  fine_model.getLoans(req.params.card)
+  .then(response => {
+    console.log("test1r");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test1j");
+    res.status(500).send(error);
+  })
+});
+
 app.listen(3000, () => console.log('API is running on http://localhost:3000/search'));

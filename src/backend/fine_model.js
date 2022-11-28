@@ -42,7 +42,24 @@ const payFines = (body) => {
     })
 } 
 
+const getLoans = (body) => {
+    return new Promise(function (resolve,reject) {
+        console.log("zestyy");
+        console.log(String(body));
+        pool.query('SELECT * FROM Book_Loans WHERE CardID = $1 AND DATE_IN IS NULL',
+        [String(body).substring(1)],
+        (error, result) => {
+            if(error){
+                console.log("zesto");
+                reject(error);
+            }
+            resolve(result.rows);
+        })
+    })
+}
+
 module.exports = {
     getFines,
     payFines,
+    getLoans,
 }
