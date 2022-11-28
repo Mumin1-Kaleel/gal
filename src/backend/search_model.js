@@ -1,3 +1,5 @@
+const e = require('express');
+
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
@@ -11,42 +13,134 @@ const findBook = (body) => {
   return new Promise(function (resolve, reject) {
     let keys = Object.keys(body);
     ISBN = String(body[keys[0]]);
-    console.log(typeof ISBN === 'undefined');
-    console.log(ISBN == '')
-    if(ISBN == ''){
-      ISBN = 'sadfasdfdsafasfd';
-    }
     Title = String(body[keys[1]]);
-    if(Title == ''){
-      Title = 'asdfdfasdfsdafasd';
-    }
     Author = String(body[keys[2]]);
-    if(Author == ''){
-      Author = 'fdsfasddsfasdfsdf';
-    }
-    console.log("testk");
-    console.log(ISBN);;
-    console.log(ISBN == null);
-    console.log(Title);
-    console.log(Author);
-    pool.query('SELECT * FROM Book WHERE Isbn10 LIKE \'%\' || $1 || \'%\' OR Title LIKE \'%\' || $2 || \'%\' OR Author LIKE \'%\' || $3 || \'%\'',
-    [ISBN,Title,Author],
-      (error, results) => {
-      if (error) { //error handling
-        console.log("testg");
-        reject(error);
-      }
-      if(results == null){
-        console.log("testr");
-        console.log(results);
-        resolve(`Search Invalid!`); //display rows in the database in form of json
+    if(ISBN != ''){
+      if(Title != ''){
+        if(Author != ''){
+          pool.query('SELECT * FROM Book WHERE Isbn10 LIKE \'%\' || $1 || \'%\' AND Title LIKE \'%\' || $2 || \'%\' AND Author LIKE \'%\' || $3 || \'%\'',
+            [ISBN,Title,Author],
+              (error, results) => {
+              if (error) { //error handling
+                console.log("testg");
+                reject(error);
+              }
+              if(results == null){
+                console.log("testr");
+                console.log(results);
+                resolve(`Search Invalid!`); //display rows in the database in form of json
+              }
+              else{
+                console.log("testm");
+                console.log(results.rows);
+                resolve(results.rows);
+              }
+            });
+        }
+        else{
+          pool.query('SELECT * FROM Book WHERE Isbn10 LIKE \'%\' || $1 || \'%\' AND Title LIKE \'%\' || $2 || \'%\'',
+            [ISBN,Title],
+              (error, results) => {
+              if (error) { //error handling
+                console.log("testg");
+                reject(error);
+              }
+              if(results == null){
+                console.log("testr");
+                console.log(results);
+                resolve(`Search Invalid!`); //display rows in the database in form of json
+              }
+              else{
+                console.log("testm");
+                console.log(results.rows);
+                resolve(results.rows);
+              }
+            });
+        }
       }
       else{
-        console.log("testm");
-        console.log(results.rows);
-        resolve(results.rows);
+        pool.query('SELECT * FROM Book WHERE Isbn10 LIKE \'%\' || $1 || \'%\'',
+          [ISBN],
+            (error, results) => {
+            if (error) { //error handling
+              console.log("testg");
+              reject(error);
+            }
+            if(results == null){
+              console.log("testr");
+              console.log(results);
+              resolve(`Search Invalid!`); //display rows in the database in form of json
+            }
+            else{
+              console.log("testm");
+              console.log(results.rows);
+              resolve(results.rows);
+            }
+          });
       }
-    });
+    }
+    else if(Title != ''){
+      if(Author != ''){
+        pool.query('SELECT * FROM Book WHERE Title LIKE \'%\' || $1 || \'%\' AND Author LIKE \'%\' || $2 || \'%\'',
+          [Title,Author],
+            (error, results) => {
+            if (error) { //error handling
+              console.log("testg");
+              reject(error);
+            }
+            if(results == null){
+              console.log("testr");
+              console.log(results);
+              resolve(`Search Invalid!`); //display rows in the database in form of json
+            }
+            else{
+              console.log("testm");
+              console.log(results.rows);
+              resolve(results.rows);
+            }
+          });
+      }
+      else{
+        pool.query('SELECT * FROM Book WHERE Title LIKE \'%\' || $1 || \'%\'',
+          [Title],
+            (error, results) => {
+            if (error) { //error handling
+              console.log("testg");
+              reject(error);
+            }
+            if(results == null){
+              console.log("testr");
+              console.log(results);
+              resolve(`Search Invalid!`); //display rows in the database in form of json
+            }
+            else{
+              console.log("testm");
+              console.log(results.rows);
+              resolve(results.rows);
+            }
+          });
+      }
+    }
+    else if(Author != ''){
+      pool.query('SELECT * FROM Book WHERE Author LIKE \'%\' || $1 || \'%\'',
+          [Author],
+            (error, results) => {
+            if (error) { //error handling
+              console.log("testg");
+              reject(error);
+            }
+            if(results == null){
+              console.log("testr");
+              console.log(results);
+              resolve(`Search Invalid!`); //display rows in the database in form of json
+            }
+            else{
+              console.log("testm");
+              console.log(results.rows);
+              resolve(results.rows);
+            }
+          });
+    }
   });
 };
 
