@@ -11,6 +11,7 @@ export default function FinePage() {
 
     const [card, setCard] = useState('');
     const [results, setResults] = useState('');
+
     const handleSubmit = async e => {
         e.preventDefault();
         fetch('http://localhost:3000/fine/:' + String(card), {
@@ -52,7 +53,7 @@ export default function FinePage() {
                 </form>
             </div>
             <div>
-                <FineTable/>
+                <FineTable setResults={results}/>
             </div>
         </div>
     )
