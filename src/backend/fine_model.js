@@ -23,6 +23,26 @@ const getFines = (body) => {
     })
 }
 
+const payFines = (body) => {
+    return new Promise(function (resolve,reject) {
+        console.log("zest[y");
+        console.log(String(body));
+        for(let i = 0; i < body.length; i++){
+            console.log(body[i]);
+            pool.query('UPDATE Fines SET Paid = $1 WHERE LOANID = $2',
+            [true, String(body[i])],
+            (error) => {
+                if(error){
+                    console.log("zesto");
+                    reject(error);
+                }
+                resolve(`Fine Paid!`);
+            })
+        }
+    })
+} 
+
 module.exports = {
     getFines,
+    payFines,
 }

@@ -75,10 +75,25 @@ export default function FineTable({ setResults }) {
     const [selectedRows, setSelectedRows] = useState();
 
     const handleSubmit = async e => {
-
-
         console.log(selectedRows)
         e.preventDefault();
+
+        fetch('http://localhost:3000/fine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(selectedRows),
+        })
+        .then(response => {
+            console.log("test120");
+            return response.text();
+        })
+        .then(data => {
+            console.log("test130");
+            console.log(data);
+            alert(data);
+        })
     }
 
     return (

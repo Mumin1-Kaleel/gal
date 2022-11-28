@@ -120,4 +120,17 @@ app.get('/fine/:card', function(req, res){
   })
 });
 
+app.post('/fine', function (req, res) {
+  console.log("mbg");
+  fine_model.payFines(req.body)
+  .then(response => {
+    console.log("test1r0");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test1r1");
+    res.status(500).send(error);
+  })
+});
+
 app.listen(3000, () => console.log('API is running on http://localhost:3000/search'));
