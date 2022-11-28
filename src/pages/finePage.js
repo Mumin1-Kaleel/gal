@@ -2,7 +2,7 @@
 import './HomePage.css';
 import * as React from 'react';
 import {useState} from "react";
-
+import './finePage.css';
 
 import FineTable from "./fine";
 
@@ -11,6 +11,7 @@ export default function FinePage() {
 
     const [card, setCard] = useState('');
     const [results, setResults] = useState('');
+    const [res, setRes] = useState('');
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -50,6 +51,7 @@ export default function FinePage() {
                     />
 
                     <button type = "submit">Submit</button>
+                    <button className = "refreshbutton" type="button">Refresh</button>
                 </form>
             </div>
             <div>
