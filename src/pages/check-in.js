@@ -43,7 +43,7 @@ export default function DataTable({ setResults }) {
 
             if(order.date_in === null) {
 
-                const date1 = new Date(order.date_out);
+                const date1 = new Date(order.due_date);
                 const date2 = new Date();
                 console.log(date1);
                 console.log(date2);
