@@ -92,8 +92,22 @@ export default function FinePage() {
 
                         const time = diffDays - 14
                         const cost = .25 * time;
-                        console.log(order.loanid);
-                        console.log(cost);
+                        fetch('http://localhost:3000/fine/:' + String(order.loanid) + '/:' + String(cost), {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            })
+                            .then(response => {
+                                console.log("test12");
+                                return response.text();
+                            })
+                            .then(data => {
+                                console.log("test13");
+                                console.log(data);
+                                alert(data);
+                            })
                     }
                 }
 

@@ -146,4 +146,17 @@ app.post('/fine/:card', function (req, res) {
   })
 });
 
+app.get('/fine/:LoanID/:Cost', function(req, res){
+  console.log("test09");
+  home_model.createFines(req.params.LoanID, req.params.Cost)
+  .then(response => {
+    console.log("test010");
+    res.status(200).send(response); //output to page (status() has hTTP code for output)
+  })
+  .catch(error => {
+    console.log("test011");
+    res.status(500).send(error);
+  })
+});
+
 app.listen(3000, () => console.log('API is running on http://localhost:3000/search'));
