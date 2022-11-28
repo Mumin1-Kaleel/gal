@@ -123,7 +123,7 @@ export default function FinePage() {
     return (
         <div>
             <div className="borrower">
-                <h1>Profile:</h1>
+                <h1>Fines:</h1>
                 <form onSubmit={handleSubmit}>
                     <label>Card Id:</label>
 

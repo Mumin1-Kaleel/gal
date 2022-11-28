@@ -18,6 +18,7 @@ export default function FineTable({ setResults }) {
     var fine = [];
     var rows;
     var res;
+    let sum = 0;
 
     if(setResults.charAt(0) == '[') {
 
@@ -61,6 +62,10 @@ export default function FineTable({ setResults }) {
                 "fine_amt": order.fine_amt,
                 "paid": x,
                 "available": b
+            }
+            if(order.paid == false) {
+                var number = Number(order.fine_amt.replace(/[^0-9.-]+/g,""));
+                sum = sum + number
             }
             return info;
         });
@@ -109,8 +114,9 @@ export default function FineTable({ setResults }) {
                           setSelectedRows(newSelectionRow);
                       }}
                       selectionModel={selectedRows}
-                      isRowSelectable={(params) => params.row.available === 'Yes'}
+                      isRowSelectable={(params) => (params.row.paid === 'No' && params.row.available === 'Yes') }
             />
+            <li> Total fine is: ${sum}</li>
             <button className = "checkoutbutton" onClick={handleSubmit} >Pay Fine</button>
         </div>
     );
