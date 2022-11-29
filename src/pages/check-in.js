@@ -50,9 +50,9 @@ export default function DataTable({ setResults }) {
                 const diffTime = Math.abs(date2 - date1);
                 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
                 console.log(diffDays + " days");
-                if (diffDays > 14) {
+                if (diffDays > 0) {
 
-                    const time = diffDays - 14
+                    const time = diffDays;
                     const cost = .25 * time;
                     fetch('http://localhost:3000/home/:' + String(order.loanid) + '/:' + String(cost), {
                         method: 'GET',
@@ -105,9 +105,10 @@ export default function DataTable({ setResults }) {
                     const date2 = new Date();
                     const diffTime = Math.abs(date2 - date1);
                     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                    if(diffDays > 14){
+                    if(diffDays > 0){
 
-                        const time = diffDays - 14
+                        const time = diffDays;
+
                         const cost =  .25 * time;
                         fine.push(order.loanid, cost);
                         console.log(String(order.loanid));

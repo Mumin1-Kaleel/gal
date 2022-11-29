@@ -81,16 +81,16 @@ export default function FinePage() {
 
                 if(order.date_in === null) {
 
-                    const date1 = new Date(order.date_out);
+                    const date1 = new Date(order.due_date);
                     const date2 = new Date();
                     console.log(date1);
                     console.log(date2);
                     const diffTime = Math.abs(date2 - date1);
                     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
                     console.log(diffDays + " days");
-                    if (diffDays > 14) {
+                    if (diffDays > 0) {
 
-                        const time = diffDays - 14
+                        const time = diffDays;
                         const cost = .25 * time;
                         fetch('http://localhost:3000/fine/:' + String(order.loanid) + '/:' + String(cost), {
                             method: 'GET',
